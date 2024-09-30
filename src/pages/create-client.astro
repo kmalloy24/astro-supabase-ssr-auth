@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
 import { createClient } from "@supabase/supabase-js";
 
 const supabase = createClient(
@@ -18,10 +19,15 @@ const countries = data ?? [];
 
 <Layout title="Dashboard">
 	<main>
-		<h1><span class="text-gradient">Dashboard</h1>
-			<ul>
-				{countries.map((country) => <li>{country.name}</li>)}
-			  </ul>
+		<h1><span class="text-gradient"><code>createClient</code></h1>
+
+		<p class="instructions">
+			<code>@supabase/supabase-js</code>
+		</p>
+
+		<ul>
+			{countries.map((country) => <li>{country.name}</li>)}
+		</ul>
 	</main>
 </Layout>
 

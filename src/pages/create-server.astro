@@ -1,35 +1,44 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
+
+import { createServerClient, parseCookieHeader } from "@supabase/ssr";
+
+const supabase = createServerClient(
+  import.meta.env.PUBLIC_SUPABASE_URL,
+  import.meta.env.PUBLIC_SUPABASE_ANON_KEY,
+  {
+    cookies: {
+      getAll() {
+        return parseCookieHeader(Astro.request.headers.get("Cookie") ?? "");
+      },
+      setAll(cookiesToSet) {
+        cookiesToSet.forEach(({ name, value, options }) =>
+          Astro.cookies.set(name, value, options),
+        );
+      },
+    },
+  },
+);
+
+const { data, error } = await supabase.from("countries").select().limit(5);
+
+if (error) {
+  console.error("Error fetching countries:", error);
+}
+
+const countries = data ?? [];
 ---
 
-<Layout title="Welcome to Astro.">
+<Layout title="Dashboard">
 	<main>
-		<h1><span class="text-gradient">Astro</span> + Supabase/SSR Auth</h1>
+		<h1><span class="text-gradient"><code>createServerClient</code></h1>
+
 		<p class="instructions">
-			This is the home page at <code>src/pages/index.astro</code><br />
+			<code>@supabase/ssr</code>
 		</p>
-		<ul role="list" class="link-card-grid">
-			<Card
-				href="/login"
-				title="Login"
-				body="Login with the createServerClient"
-			/>
-			<Card
-				href="/create-client"
-				title="createClient"
-				body="Client-side client for @supabase/supabase-js"
-			/>
-			<Card
-				href="/create-browser"
-				title="createBrowserClient"
-				body="Client-side client for @supabase/ssr"
-			/>
-			<Card
-				href="/create-server"
-				title="createServerClient"
-				body="Server-side client for @supabase/ssr"
-			/>
+
+		<ul>
+			{countries.map((country) => <li>{country.name}</li>)}
 		</ul>
 	</main>
 </Layout>
