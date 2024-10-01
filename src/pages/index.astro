@@ -1,36 +1,66 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
+import Layout from '@layouts/Layout.astro';
+import Card from '@components/Card.astro';
 ---
 
-<Layout title="Welcome to Astro.">
+<Layout title="Home">
 	<main>
-		<h1><span class="text-gradient">Astro</span> + Supabase/SSR Auth</h1>
-		<p class="instructions">
-			This is the home page at <code>src/pages/index.astro</code><br />
+		<h1><span class="text-gradient">Astro</span> + Supabase SSR</h1>
+		
+		<p>
+			A demo showing how to use the <a href=""><code>@supabase/ssr</code></a> package with Astro
+			to make users and their sessions available on both the server and the client 
+			when in <a href=""><code>output:server</code></a> mode. 
+	   </p>
+
+		<h2>Load Data</h2>
+
+		<p>
+			Load a list from the <code>countries</code> table to test the client is working properly.
 		</p>
+
 		<ul role="list" class="link-card-grid">
 			<Card
-				href="/login"
-				title="Login"
-				body="Login with the createServerClient"
-			/>
-			<Card
-				href="/create-client"
-				title="createClient"
-				body="Client-side client for @supabase/supabase-js"
-			/>
-			<Card
-				href="/create-browser"
+				href="/clients/create-browser"
 				title="createBrowserClient"
 				body="Client-side client for @supabase/ssr"
 			/>
 			<Card
-				href="/create-server"
+				href="/clients/create-server"
 				title="createServerClient"
 				body="Server-side client for @supabase/ssr"
 			/>
 		</ul>
+
+		<p class="instructions">
+			 <code>@supabase/ssr</code> provides a client-side client and server-side client.
+			 This is confusing as the package is named SSR and it is mainly used for auth,
+			 replacing the <code>auth-helpers</code> package. On top of that, if you are not
+			 careful, the client-side, <a href="/clients/create-client"><code>createClient</code></a>
+			 provided by <code>@supabase/supabase-js</code> can also get mixed in.
+			 <br />
+		</p>
+
+		<hr />
+
+		<h2>Auth</h2>
+
+		<p>
+			Load a list from the <code>countries</code> table to test the client is working properly.
+		</p>
+
+		<Card
+			href="/login"
+			title="Login"
+			body="Login with the createServerClient"
+		/>
+
+		<h3>Middleware</h3>
+
+		<h3>Protected Routes</h3>
+
+
+
 	</main>
 </Layout>
 

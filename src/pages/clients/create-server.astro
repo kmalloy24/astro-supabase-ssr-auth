@@ -1,11 +1,23 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from '@layouts/Layout.astro';
 
-import { createClient } from "@supabase/supabase-js";
+import { createServerClient, parseCookieHeader } from "@supabase/ssr";
 
-const supabase = createClient(
+const supabase = createServerClient(
   import.meta.env.PUBLIC_SUPABASE_URL,
   import.meta.env.PUBLIC_SUPABASE_ANON_KEY,
+  {
+    cookies: {
+      getAll() {
+        return parseCookieHeader(Astro.request.headers.get("Cookie") ?? "");
+      },
+      setAll(cookiesToSet) {
+        cookiesToSet.forEach(({ name, value, options }) =>
+          Astro.cookies.set(name, value, options),
+        );
+      },
+    },
+  },
 );
 
 const { data, error } = await supabase.from("countries").select().limit(5);
@@ -17,12 +29,12 @@ if (error) {
 const countries = data ?? [];
 ---
 
-<Layout title="Dashboard">
+<Layout title="SSR Server Client">
 	<main>
-		<h1><span class="text-gradient"><code>createClient</code></h1>
+		<h1><span class="text-gradient"><code>createServerClient</code></h1>
 
 		<p class="instructions">
-			<code>@supabase/supabase-js</code>
+			<code>@supabase/ssr</code>
 		</p>
 
 		<ul>
