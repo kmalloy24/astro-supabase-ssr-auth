@@ -23,14 +23,20 @@ import Card from '@components/Card.astro';
 			<Card
 				href="/clients/create-browser"
 				title="createBrowserClient"
-				body="Client-side client for @supabase/ssr"
+				body="Client-side client from @supabase/ssr"
 			/>
 			<Card
 				href="/clients/create-server"
 				title="createServerClient"
-				body="Server-side client for @supabase/ssr"
+				body="Server-side client from @supabase/ssr"
 			/>
 		</ul>
+		
+		<Card
+			href="/clients/create-client"
+			title="createClient"
+			body="Client-side client from @supabase/supabase-js"
+		/>
 
 		<p class="instructions">
 			 <code>@supabase/ssr</code> provides a client-side client and server-side client.
@@ -46,7 +52,7 @@ import Card from '@components/Card.astro';
 		<h2>Auth</h2>
 
 		<p>
-			Load a list from the <code>countries</code> table to test the client is working properly.
+			Login to access user data. Routes are protected through middleware.
 		</p>
 
 		<Card
@@ -55,11 +61,30 @@ import Card from '@components/Card.astro';
 			body="Login with the createServerClient"
 		/>
 
-		<h3>Middleware</h3>
-
 		<h3>Protected Routes</h3>
 
-
+		<ul role="list" class="link-card-grid">
+			<Card
+				href="/protected"
+				title="Protected"
+				body=""
+			/>
+			<Card
+				href="/protected/dashboard"
+				title="Dashboard"
+				body=""
+			/>
+			<Card
+				href="/protected/account"
+				title="Account"
+				body=""
+			/>
+			<Card
+				href="/protected/account/settings"
+				title="Account Settings"
+				body=""
+			/>
+		</ul>
 
 	</main>
 </Layout>
