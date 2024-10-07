@@ -20,7 +20,7 @@ import Layout from '@layouts/Layout.astro';
 </Layout>
 
 <script>
-  import { supabase } from "@lib/supabase/browser";
+  import { supabase } from "@lib/supabase/client";
 
   const countryList = document.getElementById('countryList');
   const fetchMoreBtn = document.getElementById('fetchMoreBtn') as HTMLButtonElement;

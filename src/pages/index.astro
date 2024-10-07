@@ -16,8 +16,16 @@ import Card from '@components/Card.astro';
 		<h2>Load Data</h2>
 
 		<p>
-			Load a list from the <code>countries</code> table to test the client is working properly.
+			Refer to the  <a href="https://supabase.com/docs/guides/auth/server-side/creating-a-client?queryGroups=package-manager&package-manager=pnpm&queryGroups=framework&framework=astro&queryGroups=environment&environment=astro-browser">
+			Supabase Docs</a> for instructions on setting up the different clients in your Astro project. 
+			
+	   </p>
+
+		<p>
+			Below are routes that load a list from the <code>countries</code> table to test the client is configured properly.
 		</p>
+
+		<h3>@supabase/ssr</h3>
 
 		<ul role="list" class="link-card-grid">
 			<Card
@@ -31,12 +39,21 @@ import Card from '@components/Card.astro';
 				body="Server-side client from @supabase/ssr"
 			/>
 		</ul>
-		
-		<Card
-			href="/clients/create-client"
-			title="createClient"
-			body="Client-side client from @supabase/supabase-js"
-		/>
+
+		<h3>@supabase/supabase-js</h3>
+
+		<ul role="list" class="link-card-grid">
+			<Card
+				href="/clients/create-client-client"
+				title="createClient"
+				body="Client from @supabase/supabase-js used client-side"
+			/>
+			<Card
+				href="/clients/create-client-server"
+				title="createClient"
+				body="Client from @supabase/supabase-js used server-side"
+			/>
+		</ul>
 
 		<p class="instructions">
 			 <code>@supabase/ssr</code> provides a client-side client and server-side client.
@@ -56,8 +73,8 @@ import Card from '@components/Card.astro';
 		</p>
 
 		<Card
-			href="/login"
-			title="Login"
+			href="/signin"
+			title="Sign In"
 			body="Login with the createServerClient"
 		/>
 

@@ -1,33 +1,29 @@
 ---
 import Layout from '@layouts/Layout.astro';
 
-import { createClient } from "@supabase/supabase-js";
+const { cookies, redirect } = Astro;
 
-const supabase = createClient(
-  import.meta.env.PUBLIC_SUPABASE_URL,
-  import.meta.env.PUBLIC_SUPABASE_ANON_KEY,
-);
+const accessToken = cookies.get("sb-access-token");
+const refreshToken = cookies.get("sb-refresh-token");
 
-const { data, error } = await supabase.from("countries").select().limit(5);
-
-if (error) {
-  console.error("Error fetching countries:", error);
+if (accessToken && refreshToken) {
+  return redirect("/dashboard");
 }
-
-const countries = data ?? [];
 ---
 
-<Layout title="JS Client">
+<Layout title="Sign In">
 	<main>
-		<h1><span class="text-gradient"><code>createClient</code></h1>
+		<h1><span class="text-gradient">Sign In</h1>
 
-		<p class="instructions">
-			<code>@supabase/supabase-js</code>
-		</p>
+		<form action="/api/auth/signin" method="post">
+			<label for="email">Email</label>
+			<input type="email" name="email" id="email" />
 
-		<ul>
-			{countries.map((country) => <li>{country.name}</li>)}
-		</ul>
+			<label for="password">Password</label>
+			<input type="password" name="password" id="password" />
+
+			<button type="submit">Login</button>
+		</form>
 	</main>
 </Layout>
 
