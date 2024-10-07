@@ -1,7 +1,7 @@
-import { defineMiddleware } from "astro:middleware";
 import { createServerClient, parseCookieHeader } from "@supabase/ssr";
+import type { APIContext } from "astro";
 
-export const onRequest = defineMiddleware(async (context, next) => {
+export async function GET(context: APIContext) {
   const supabase = createServerClient(
     import.meta.env.PUBLIC_SUPABASE_URL,
     import.meta.env.PUBLIC_SUPABASE_ANON_KEY,
@@ -19,8 +19,11 @@ export const onRequest = defineMiddleware(async (context, next) => {
     }
   );
 
-  const data = await supabase.from("countries").select().limit(5);
-  console.log(data);
+  const countries = await supabase.from("countries").select().limit(5);
 
-  return next();
-});
+  return new Response(
+    JSON.stringify({
+      countries: countries.data,
+    })
+  );
+}
